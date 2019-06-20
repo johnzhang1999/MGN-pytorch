@@ -9,18 +9,24 @@ class RandomSampler(sampler.Sampler):
         self.data_source = data_source
         self.batch_image = batch_image
         self.batch_id = batch_id
-
+        self.unique_ids = []
         self._id2index = collections.defaultdict(list)
         for idx, path in enumerate(data_source.imgs):
             _id = data_source.id(path)
             self._id2index[_id].append(idx)
+            self.unique_ids.append(_id)
+        # n = set()
+        # for key,val in self._id2index.items():
+        #     if len(val) == 0:
+        #         n.add(key)
+        # if len(n) == 0: print('NONE ARE EMPTY')
 
     def __iter__(self):
-        unique_ids = self.data_source.unique_ids
-        random.shuffle(unique_ids)
+        # unique_ids = self.data_source.unique_ids
+        random.shuffle(self.unique_ids)
 
         imgs = []
-        for _id in unique_ids:
+        for _id in self.unique_ids:
             imgs.extend(self._sample(self._id2index[_id], self.batch_image))
         return iter(imgs)
 
@@ -31,4 +37,5 @@ class RandomSampler(sampler.Sampler):
     def _sample(population, k):
         if len(population) < k:
             population = population * k
+        # print('population: {}, k: {}'.format(population,k))
         return random.sample(population, k)

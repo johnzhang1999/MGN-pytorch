@@ -27,7 +27,8 @@ class Market1501(dataset.Dataset):
         # self.imgs = [path for path in list_pictures(data_path) if self.id(path) != -1]
         self.imgs = [img[0] for img in self.lib]
 
-        # self._id2label = {_id: idx for idx, _id in enumerate(self.unique_ids)}
+        self._id2label = {_id: idx for idx, _id in enumerate(self.unique_ids)}
+        print(self._id2label)
 
     def process_dir(self, dir_path, relabel=False):
         ret = []
@@ -40,7 +41,7 @@ class Market1501(dataset.Dataset):
                 pid_container.add(pid)
                 ret.append((osp.join(self.data_root,'Image',filename),pid,int(cam)))
         pid2label = {pid:label for label, pid in enumerate(pid_container)}
-        self._id2label = pid2label
+        # self._id2label = pid2label
         # print(pid2label)
         if relabel:
             for path,pid,cam in ret:

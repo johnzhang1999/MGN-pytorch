@@ -1,10 +1,10 @@
 import os
 import torch
 import numpy as np
-import utils.utility as utility
+import util.utility as utility
 from scipy.spatial.distance import cdist
-from utils.functions import cmc, mean_ap
-from utils.re_ranking import re_ranking
+from util.functions import cmc, mean_ap
+from util.re_ranking import re_ranking
 
 class Trainer():
     def __init__(self, args, model, loss, loader, ckpt):

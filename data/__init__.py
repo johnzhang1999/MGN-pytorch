@@ -1,8 +1,9 @@
 from importlib import import_module
 from torchvision import transforms
-from utils.random_erasing import RandomErasing
 from data.sampler import RandomSampler
 from torch.utils.data import dataloader
+
+from util.random_erasing import RandomErasing
 
 class Data:
     def __init__(self, args):

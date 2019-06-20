@@ -5,7 +5,7 @@ import model
 from trainer import Trainer
 
 from option import args
-import utils.utility as utility
+import util.utility as utility
 
 ckpt = utility.checkpoint(args)
 

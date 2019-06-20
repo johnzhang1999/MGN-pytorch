@@ -10,8 +10,8 @@ import scipy.misc as misc
 
 import torch
 import torch.optim as optim
-from utils.nadam import Nadam
-from utils.n_adam import NAdam
+from util.nadam import Nadam
+from util.n_adam import NAdam
 import torch.optim.lr_scheduler as lrs
 
 class checkpoint():

@@ -12,21 +12,20 @@ class Market1501(dataset.Dataset):
         self.loader = default_loader
 
         data_path = args.datadir
+        self.data_root = args.datadir
         if dtype == 'train':
             data_path = osp.join(data_path, 'Info/sa_train.csv')
-            self.lib = process_dir(data_path,relabel=True)
+            self.lib = self.process_dir(data_path,relabel=True)
         elif dtype == 'test':
             data_path = osp.join(data_path, 'Info/sa_gallery.csv')
-            self.lib = process_dir(data_path,relabel=False)
+            self.lib = self.process_dir(data_path,relabel=False)
         else:
             data_path = osp.join(data_path, 'Info/sa_query.csv')
-            self.lib = process_dir(data_path,relabel=False)
-        
-        self.data_root = args.datadir
-        
+            self.lib = self.process_dir(data_path,relabel=False)
         
 
         # self.imgs = [path for path in list_pictures(data_path) if self.id(path) != -1]
+        self.imgs = [img[0] for img in self.lib]
 
         # self._id2label = {_id: idx for idx, _id in enumerate(self.unique_ids)}
 
@@ -41,6 +40,7 @@ class Market1501(dataset.Dataset):
                 pid_container.add(pid)
                 ret.append((osp.join(self.data_root,'Image',filename),pid,int(cam)))
         pid2label = {pid:label for label, pid in enumerate(pid_container)}
+        self._id2label = pid2label
         # print(pid2label)
         if relabel:
             for path,pid,cam in ret:
